@@ -14,8 +14,8 @@ export class AppService {
   constructor(@InjectRepository(SearchHistoryEntity) private searchHistoryRepository: Repository<SearchHistoryEntity>,) {
     this.sesClient = new SESClient({
       credentials: {
-        accessKeyId: process.env["AWS_ACCESS_KEY"],
-        secretAccessKey: process.env["AWS_SECRET_KEY"],
+        accessKeyId: process.env["ACCESS_KEY_AWS"],
+        secretAccessKey: process.env["SECRET_KEY_AWS"],
       },
       region: 'ap-southeast-2',
     });
