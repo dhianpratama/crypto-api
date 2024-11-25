@@ -20,11 +20,11 @@ JWT_SECRET_KEY=
 ```
 
 ## Local Dev
-1. `nx run-many --target=serve` or `nx serve auth-api` or `nx serve crypto-api`
+1. `nx run-many --target=serve` or `nx serve auth-api` or `nx serve crypto-api` or `nx serve search-api`
    1. `https://localhost:3001/dev/test/`
    2. `https://localhost:3002/dev/test/`
 
 ## Deploy
-1. `nx run-many --target=deploy` or `nx deploy auth-api` or `nx deploy crypto-api`
+1. `nx run-many --target=deploy` or `nx deploy auth-api` or `nx deploy crypto-api` or `nx serve search-api`
    1. `https://<api-id>.execute-api.ap-southeast-2.amazonaws.com/dev/test/`
 
