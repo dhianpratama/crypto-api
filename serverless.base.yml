@@ -14,8 +14,8 @@ provider:
     NODE_ENV: ${env:NODE_ENV}
     JWT_SECRET_KEY: ${env:JWT_SECRET_KEY}
     SQS_ENDPOINT: ${env:SQS_ENDPOINT}
-    AWS_ACCESS_KEY: ${env:AWS_ACCESS_KEY}
-    AWS_SECRET_KEY: ${env:AWS_SECRET_KEY}
+    ACCESS_KEY_AWS: ${env:ACCESS_KEY_AWS}
+    SECRET_KEY_AWS: ${env:SECRET_KEY_AWS}
 
 plugins:
   - serverless-esbuild

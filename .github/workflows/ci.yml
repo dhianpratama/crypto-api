@@ -49,16 +49,16 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-access-key-id: ${{ secrets.ACCESS_KEY_AWS }}
+          aws-secret-access-key: ${{ secrets.SECRET_KEY_AWS }}
           aws-region: 'ap-southeast-2'
           role-session-name: default
 
       - name: Deploy to AWS Lambda
         run: ./node_modules/nx/bin/nx.js run-many --targets=deploy --exclude migration
         env:
-          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
-          AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+          ACCESS_KEY_AWS: ${{ secrets.ACCESS_KEY_AWS }}
+          SECRET_KEY_AWS: ${{ secrets.SECRET_KEY_AWS }}
           DB_HOST: ${{ secrets.DB_HOST }}
           DB_PORT: ${{ secrets.DB_PORT }}
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
