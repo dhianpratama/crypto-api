@@ -1,7 +1,7 @@
 import { Message } from '@aws-sdk/client-sqs';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { SearchStatusEnum, SqsQueue } from '@nimo/common';
-import { SqsMessageHandler, SqsConsumerEventHandler } from '@ssut/nestjs-sqs';
+import { SqsMessageHandler } from '@ssut/nestjs-sqs';
 import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SearchHistoryEntity } from '@nimo/entities';
@@ -14,8 +14,8 @@ export class AppService {
   constructor(@InjectRepository(SearchHistoryEntity) private searchHistoryRepository: Repository<SearchHistoryEntity>,) {
     this.sesClient = new SESClient({
       credentials: {
-        accessKeyId: process.env["AWS_ACCESS_KEY_ID"],
-        secretAccessKey: process.env["AWS_SECRET_ACCESS_KEY"],
+        accessKeyId: process.env["AWS_ACCESS_KEY"],
+        secretAccessKey: process.env["AWS_SECRET_KEY"],
       },
       region: 'ap-southeast-2',
     });
