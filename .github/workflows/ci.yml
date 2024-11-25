@@ -46,9 +46,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run migration
-        run: npm run migration:run
-
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
