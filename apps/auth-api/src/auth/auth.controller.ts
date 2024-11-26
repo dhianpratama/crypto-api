@@ -1,6 +1,6 @@
-import { Body, Controller, forwardRef, Get, HttpCode, Inject, Post } from '@nestjs/common';
+import { Body, Controller, forwardRef, HttpCode, Inject, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CreateUserRequestDto, CreateUserResponseDto, LoginRequestDto, LoginResponseDto } from '@nimo/dto'
+import { LoginRequestDto, LoginResponseDto } from '@nimo/dto'
 
 @Controller('auth')
 export class AuthController {

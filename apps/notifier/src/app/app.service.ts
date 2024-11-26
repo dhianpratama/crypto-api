@@ -22,7 +22,7 @@ export class AppService {
   }
 
   getData(): { message: string } {
-    return { message: 'Hello API' };
+    return { message: 'Hello notifier API' };
   }
 
   private createSendEmailCommand = (toAddress, subject, body) => {
