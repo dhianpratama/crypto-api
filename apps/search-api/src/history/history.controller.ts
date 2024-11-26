@@ -1,6 +1,6 @@
-import { Controller, forwardRef, Get, HttpCode, Inject, Param, Req, UseGuards } from '@nestjs/common';
+import { Controller, forwardRef, Get, HttpCode, Inject, Req, UseGuards } from '@nestjs/common';
 import { HistoryService } from './history.service';
-import { GetCryptoPriceRequestDto, GetCryptoPriceResponseDto, GetSearchHistoryResponseDto } from '@nimo/dto'
+import { GetSearchHistoryResponseDto } from '@nimo/dto'
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from '@nimo/common';
 

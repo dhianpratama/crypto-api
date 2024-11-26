@@ -4,6 +4,10 @@ provider:
   name: aws
   region: ap-southeast-2
   runtime: nodejs20.x
+  stage: dev
+  httpApi:
+    id: 5mzaipywja #@TODO: harcoded because "export" doesn't work
+
   environment:
     DB_HOST: ${env:DB_HOST}
     DB_PORT: ${env:DB_PORT}

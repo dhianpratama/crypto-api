@@ -25,6 +25,16 @@
         "parallel": false
       }
     },
+    "remove": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/auth-api",
+        "commands": [
+          "serverless remove"
+        ],
+        "parallel": false
+      }
+    },
     "lint": {
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],

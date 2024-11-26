@@ -14,9 +14,9 @@ functions:
   main:
     handler: src/handler.handler
     events:
-      - http:
+      - httpApi:
           method: ANY
-          path: /
-      - http:
+          path: /auth
+      - httpApi:
           method: ANY
-          path: '{proxy+}'
+          path: /auth/{proxy+}

@@ -5,7 +5,7 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(@Inject(forwardRef(() => AppService)) private readonly appService: AppService) {}
 
-  @Get('/hello')
+  @Get('/notifier')
   getData() {
     return this.appService.getData();
   }
