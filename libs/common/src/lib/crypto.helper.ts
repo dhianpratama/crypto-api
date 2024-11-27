@@ -1,5 +1,3 @@
-import axios, { isCancel, AxiosError } from 'axios';
-
 export enum CoinEnum {
     BTC = "btc",
     ETH = "eth",

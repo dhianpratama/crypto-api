@@ -1,9 +1,8 @@
-import jwt from 'jsonwebtoken';
-import { forwardRef, HttpException, HttpStatus, Inject, Injectable, Logger } from '@nestjs/common';
+import { forwardRef, Inject, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CoinEnum, CoinGeckoIdEnum, CurrencyEnum, PasswordHelper, SearchStatusEnum, SqsQueue } from '@nimo/common';
-import { GetCryptoPriceRequestDto, GetCryptoPriceResponseDto, LoginRequestDto, LoginResponseDto } from '@nimo/dto';
-import { SearchHistoryEntity, UserEntity } from '@nimo/entities';
+import { CoinEnum, CoinGeckoIdEnum, CurrencyEnum, EmailQueueDataType, SearchStatusEnum, SqsQueue } from '@nimo/common';
+import { GetCryptoPriceRequestDto } from '@nimo/dto';
+import { SearchHistoryEntity } from '@nimo/entities';
 import { Repository } from 'typeorm/repository/Repository';
 import { SqsService } from '@ssut/nestjs-sqs';
 import * as UUID from 'uuid';
@@ -32,13 +31,15 @@ export class CryptoService {
     return data[CoinGeckoIdEnum[coinSymbol]]?.[vsCurrency]
   }
 
-  private async sendEmailToSqs(to: string, data: Record<string, any>) {
+  private async sendEmailToSqs(to: string, data: EmailQueueDataType) {
     await this.sqsService.send(SqsQueue.Email, {
       id: UUID.v4(),
       body: {
         email: to,
         ...data
       },
+      groupId: 'groupId',
+      deduplicationId: 'deduplicationId',
       delaySeconds: 0,
     });
   }
@@ -67,7 +68,8 @@ export class CryptoService {
         vsCurrency: data.vsCurrency,
         price,
         timestamp: new Date(),
-        historyId
+        historyId,
+        email: user.email
       })
       await this.updateHistory(historyId, { status: SearchStatusEnum.EMAIL_SENT_TO_QUEUE })
     } catch (err) {

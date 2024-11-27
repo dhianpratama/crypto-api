@@ -1,26 +1,32 @@
-/* Serverless Framework handler */
-
+import { INestMicroservice } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { configure as serverlessExpress } from '@vendia/serverless-express';
-import { Callback, Context, Handler, } from 'aws-lambda';
-
+import { Context, Handler, SQSEvent } from 'aws-lambda';
 import { AppModule } from './app/app.module';
+import { MicroserviceOptions } from '@nestjs/microservices';
+import { AWSSQSServer } from '@nimo/common';
 
-let server: Handler;
+let cachedSQSServer;
 
-async function bootstrap(): Promise<Handler> {
-  const app = await NestFactory.create(AppModule);
-  await app.init();
-
-  const expressApp = app.getHttpAdapter().getInstance();
-  return serverlessExpress({ app: expressApp });
+async function bootstrapSQSServer(
+  event: SQSEvent,
+  context: Context,
+): Promise<INestMicroservice> {
+  if (!cachedSQSServer) {
+    cachedSQSServer = await NestFactory.createMicroservice<MicroserviceOptions>(
+      AppModule,
+      {
+        strategy: new AWSSQSServer(event, context),
+        logger: console,
+      },
+    );
+  }
+  return cachedSQSServer;
 }
 
 export const handler: Handler = async (
-  event: any, // eslint-disable-line
+  event: SQSEvent,
   context: Context,
-  callback: Callback,
 ) => {
-  server = server ?? (await bootstrap());
-  return server(event, context, callback);
+  cachedSQSServer = await bootstrapSQSServer(event, context);
+  await cachedSQSServer.listen();
 };

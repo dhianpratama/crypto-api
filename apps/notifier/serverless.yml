@@ -5,18 +5,15 @@ plugins: ${file(../../serverless.base.yml):plugins}
 
 custom:
   serverless-offline:
-    httpPort: 3003
-    lambdaPort: 4003
+    httpPort: 3009
+    lambdaPort: 4009
     reloadHandler: ${file(../../serverless.base.yml):custom.serverless-offline.reloadHandler}
   esbuild: ${file(../../serverless.base.yml):custom.esbuild}
 
+	
 functions:
-  main:
+  emailSQS:
     handler: src/handler.handler
     events:
-      - httpApi:
-          method: ANY
-          path: /notifier
-      - httpApi:
-          method: ANY
-          path: /notifier/{proxy+}
+      - sqs: arn:aws:sqs:ap-southeast-2:205930627026:email.fifo
+
