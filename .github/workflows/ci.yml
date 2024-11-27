@@ -68,3 +68,4 @@ jobs:
           NODE_ENV: ${{ secrets.NODE_ENV }}
           JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
           SQS_ENDPOINT: ${{ secrets.SQS_ENDPOINT }}
+          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
