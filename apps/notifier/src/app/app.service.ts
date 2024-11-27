@@ -1,11 +1,10 @@
-import { Message } from '@aws-sdk/client-sqs';
-import { Injectable } from '@nestjs/common';
-import { SearchStatusEnum, SqsQueue } from '@nimo/common';
-import { SqsMessageHandler } from '@ssut/nestjs-sqs';
+import { Injectable, Logger } from '@nestjs/common';
+import { EmailQueueDataType, SearchStatusEnum } from '@nimo/common';
 import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SearchHistoryEntity } from '@nimo/entities';
 import { Repository } from 'typeorm';
+import moment from 'moment';
 
 @Injectable()
 export class AppService {
@@ -48,10 +47,7 @@ export class AppService {
     });
   };
 
-  @SqsMessageHandler(SqsQueue.Email, false)
-  public async handleMessage(message: Message) {
-    const data = JSON.parse(message.Body);
-
+  public async handleMessage(data: EmailQueueDataType) {
     const sendEmailCommand = this.createSendEmailCommand(
       data.email,
       `Your Requested Crypto Price`,
@@ -64,7 +60,8 @@ export class AppService {
 
       Cryptocurrency: ${data.ticker.toUpperCase()}
       Price (in ${data.vsCurrency.toUpperCase()}): ${data.price}
-      As of: ${data.timestamp}
+      As of: ${moment(data.timestamp).format()}
+
       We strive to provide accurate and up-to-date information. Please note that cryptocurrency prices are highly volatile and may change rapidly.
 
       If you have any further queries or wish to check other crypto prices, feel free to reach out or use our app again!
@@ -72,7 +69,7 @@ export class AppService {
       Thank you for trusting us to keep you informed.
 
       Best regards,
-      John Doe
+      Nimo Crypto Team
       `
     );
 

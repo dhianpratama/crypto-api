@@ -7,7 +7,7 @@ const SQS_ENDPOINT = process.env["SQS_ENDPOINT"] || 'http://localhost:9324/00000
 console.log('process.env', process.env)
 
 export enum SqsQueue {
-  Email = 'email-queue',
+  Email = 'email.fifo',
 }
 
 const sqs = new SQSClient({
