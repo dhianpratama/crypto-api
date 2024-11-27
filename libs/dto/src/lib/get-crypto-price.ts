@@ -1,13 +1,12 @@
-import {IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, IsUUID, Matches, MaxLength, MinLength, NotContains} from 'class-validator';
-import { Transform, TransformFnParams } from 'class-transformer';
+import {IsEnum, IsNotEmpty, IsString} from 'class-validator';
 import { CoinEnum, CurrencyEnum } from '@nimo/common';
 
 export class GetCryptoPriceRequestDto {
     @IsNotEmpty()
-    @IsEnum(CoinEnum)
+    @IsEnum(CoinEnum, { message: 'sssss' })
     ticker!: CoinEnum;
 
-    @IsOptional()
+    @IsNotEmpty()
     @IsEnum(CurrencyEnum)
     vsCurrency?: CurrencyEnum;
 }

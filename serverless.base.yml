@@ -3,7 +3,7 @@ useDotenv: true
 provider:
   name: aws
   region: ap-southeast-2
-  runtime: nodejs20.x
+  runtime: nodejs14.x
   stage: dev
   httpApi:
     id: 5mzaipywja #@TODO: harcoded because "export" doesn't work
@@ -36,12 +36,9 @@ custom:
     exclude: ['node_modules']
     external:
       - 'cache-manager'
-      - 'class-transformer'
-      - 'class-validator'
       - '@nestjs/websockets/socket-module'
       - '@nestjs/microservices/microservices-module'
       - '@nestjs/microservices'
-      - '@nestjs/common'
       - '@nestjs/core'
     watch:
       pattern: ['src/**/*.ts']
