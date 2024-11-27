@@ -13,6 +13,7 @@ export class AuthController {
 	@Get('/price/:ticker/:vsCurrency')
 	@HttpCode(200)
 	async getPrice(@Param() data: GetCryptoPriceRequestDto, @Req() req): Promise<GetCryptoPriceResponseDto> {
+		console.log('PARAMSS ', data)
 		const user = req['user'];
 		await this.cryptoService.getPrice(data, user)
 		return GetCryptoPriceResponseDto.factory(data.ticker)
