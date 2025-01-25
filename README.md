@@ -1,4 +1,4 @@
-# Nimo Test Serverless Microservice
+# Crypto API Serverless Microservice
 
 This project is built with Nx monorepo. Each service is using NestJS framework, run with serverless.
 
